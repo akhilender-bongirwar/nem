@@ -1,10 +1,19 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 
 //setting a ejs view engine
 app.set('view engine','ejs');
 
 app.listen(4000);
+app.use(morgan('dev'));
+app.use(express.static('public'))
+
+app.use((req,res,next)=>{
+   console.log(req.path);
+   console.log(req.method);
+   next();
+})
 
 app.get('/',(req,res)=>{
    // res.send('<p>Express</p>')
